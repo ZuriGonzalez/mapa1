@@ -7,11 +7,18 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Cargar y mostrar el segundo archivo GeoJSON
 fetch('mexico.geojson')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-    L.geoJSON(data).addTo(map);
+  .then(response => response.json())
+  .then(data => {
+    L.geoJSON(data, {
+      style: function (feature) {
+        return {
+          color: '##b6740d',        // color del borde
+          weight: 2,               // grosor del borde
+          fillColor: '##eacd9f',    // color de relleno
+          fillOpacity: 0.5         // opacidad del relleno
+        };
+      }
+    }).addTo(map);
   });
 
   
