@@ -14,6 +14,7 @@ fetch('mexico.geojson')
     L.geoJSON(data).addTo(map);
   });
 
+  
 function getColor(categoria) {
     switch (categoria) {
         case 'Leve': return '#2DC937';
