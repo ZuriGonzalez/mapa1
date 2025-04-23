@@ -75,6 +75,35 @@ legend.onAdd = function (map) {
 };
 legend.addTo(map);
 
+// Crear una capa donde se almacenarán los elementos dibujados
+var drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems);
+
+// Agregar control de dibujo
+var drawControl = new L.Control.Draw({
+    edit: {
+        featureGroup: drawnItems
+    },
+    draw: {
+        polygon: true,
+        polyline: true,
+        rectangle: true,
+        circle: true,
+        marker: true,
+        circlemarker: false
+    }
+});
+map.addControl(drawControl);
+
+// Evento cuando se termina de dibujar algo
+map.on(L.Draw.Event.CREATED, function (event) {
+    var layer = event.layer;
+    drawnItems.addLayer(layer);
+
+    // Puedes ver los datos GeoJSON en consola
+    console.log(JSON.stringify(layer.toGeoJSON()));
+});
+
 
 
 
